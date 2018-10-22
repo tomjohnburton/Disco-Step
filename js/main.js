@@ -54,12 +54,11 @@ function drawEverything() {
   
 }
 
-  var time = 3
+  var time = 10
     
   setInterval(function(){
-    time --
     $('#time').text(time)
-    console.log(time)
+    time --
   },1000)
   
 
@@ -67,7 +66,8 @@ function drawEverything() {
     function update() {
 
       if (specialCdX == p1.x && specialCdY == p1.y){
-        time = 3
+        time += 5
+        $('#time').text(time)
         newGridArray = [];
         specialCd = [];
         randomArray(10);
@@ -77,7 +77,7 @@ function drawEverything() {
         // p1.x = 0;
         // p1.y = 0;
         createNewGridArray();
-        while(newGridArray[p1.y/80][p1.x/80]===1){
+        while(newGridArray[p1.y/80][p1.x/80]===1 ){
           newGridArray = []
           createNewGridArray();
           drawGrid()
@@ -152,7 +152,7 @@ function drawGrid(){
 
     if (newGridArray[redCd[0]][redCd[1]] === 1){
       $('#game').toggle()
-      $('body').css("background-color", "red")
+      $('#title').css("background-color", "red")
 
     }
 
