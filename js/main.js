@@ -1,5 +1,7 @@
 
 
+////////////////////////////////////////// OPENING SCREEN
+
 // $('#game').toggle()
 $('.screens').toggle()
 
@@ -32,7 +34,7 @@ $('.screens').toggle()
 
 
 
-// canvas definitiom
+////////////////////////////////////////// CANVAS DEFINITION
 
 var canvas = document.getElementById('canvas')
 var ctx = canvas.getContext('2d')
@@ -42,31 +44,7 @@ var p1 = new Player(ctx, 80, "black")
 var width = canvas.width;
 var height = canvas.height;
 
-//////////////////////////////////////////
-
-
-
-// obsticle generation
-
-// var ob1 = new Obsticle(ctx)
-// var ob2 = new Obsticle(ctx)
-// var ob3 = new Obsticle(ctx)
-// var ob4 = new Obsticle(ctx)
-// var ob5 = new Obsticle(ctx)
-// var ob6 = new Obsticle(ctx)
-// var ob7 = new Obsticle(ctx)
-// var ob8 = new Obsticle(ctx)
-// var ob9 = new Obsticle(ctx)
-// var ob10 = new Obsticle(ctx)
-// var ob11 = new Obsticle(ctx)
-// var ob12 = new Obsticle(ctx)
-// var ob13 = new Obsticle(ctx)
-
-// for (var i = p1.size ; i < canvas.width; i + canvas.width/p1.size){
-//   var ob
-// }
-
-
+////////////////////////////////////////// UPDATE AND DRAW
 
 
 function drawEverything() {
@@ -76,22 +54,20 @@ function drawEverything() {
   
 }
 
-// function drawObjects(){
-  //   ob1.drawObs()
-  //   ob2.drawObs()
-  
-  // }
-  
-  // function drawScore(){
-    //   ctx.fillText('player1: ' + p1.score, canvas.width - 300, 100,150 )
+  var time = 3
     
-    // }
-    
+  setInterval(function(){
+    time --
+    $('#time').text(time)
+    console.log(time)
+  },1000)
+  
 
     var counter = 0;
     function update() {
 
       if (specialCdX == p1.x && specialCdY == p1.y){
+        time = 3
         newGridArray = [];
         specialCd = [];
         randomArray(10);
@@ -102,6 +78,7 @@ function drawEverything() {
         // p1.y = 0;
         createNewGridArray();
         while(newGridArray[p1.y/80][p1.x/80]===1){
+          newGridArray = []
           createNewGridArray();
           drawGrid()
           console.log('fish')
@@ -110,14 +87,8 @@ function drawEverything() {
         drawGrid();
         counter++;
         $('#score').text(counter)
-      }
+        
 
-      var redCd = [p1.y/80,p1.x/80]
-
-      if (newGridArray[redCd[0]][redCd[1]] === 1){
-        // $('#game').toggle()
-        $('.title').css("background-color", "red")
-  
       }
 
 
@@ -128,6 +99,9 @@ function drawEverything() {
     // drawObjects()
     update()
     
+
+
+    ////////////////////////////////////////// PLAYER CONTROLS
     
     document.onkeydown = function (event) {
       event.preventDefault()
@@ -149,6 +123,8 @@ function drawEverything() {
 }
 
 
+////////////////////////////////////////// REDRAW SPECIAL
+
 function drawGrid(){
   newGridArray[specialCd[0]][specialCd[1]] = 4
   for (var col = 0 ; col < 20; col++){
@@ -168,9 +144,8 @@ function drawGrid(){
     
 
 
-    /////////////////////////////////////////////////////////
+////////////////////////////////////////// GAME OVER
 
-    // GAME OVER 
 
 
     var redCd = [p1.y/80,p1.x/80]
