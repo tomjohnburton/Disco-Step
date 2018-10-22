@@ -1,5 +1,7 @@
 
-var colors = ['blue','red','green','yellow','black']
+var colors = ['blue','red','gold','yellow','black']
+var forbiddenColor = randomNumber(4)
+
 
 
 function randomArray (size){

@@ -41,6 +41,7 @@ var ctx = canvas.getContext('2d')
 var size = 50
 var p1 = new Player(ctx, 80, "black")
 
+$('#time').text(time)
 var width = canvas.width;
 var height = canvas.height;
 
@@ -60,6 +61,23 @@ function drawEverything() {
     $('#time').text(time)
     time --
   },1000)
+
+  // setInterval(function(){
+  //   newGridArray = [];
+  //   createNewGridArray();
+
+  //   while(newGridArray[p1.y/80][p1.x/80]===1 ){
+  //     newGridArray = []
+  //     createNewGridArray();
+
+  //     drawGrid();
+  //     drawEverything()
+
+  //   }
+
+  //   console.log('hello')
+
+  // }, 5000)
   
 
     var counter = 0;
@@ -77,19 +95,24 @@ function drawEverything() {
         // p1.x = 0;
         // p1.y = 0;
         createNewGridArray();
-        while(newGridArray[p1.y/80][p1.x/80]===1 ){
+        
+        forbiddenColor  = randomNumber(4)
+        while(newGridArray[p1.y/80][p1.x/80]===forbiddenColor ){
           newGridArray = []
           createNewGridArray();
           drawGrid()
           console.log('fish')
-
+          
         }
         drawGrid();
         counter++;
         $('#score').text(counter)
         
-
+        
       }
+      $('body').css("background-color", colors[forbiddenColor])
+      gameOver()
+
 
 
 
@@ -146,15 +169,15 @@ function drawGrid(){
 
 ////////////////////////////////////////// GAME OVER
 
+function gameOver (){
+  
+  
+  var redCd = [p1.y/80,p1.x/80]
+    if (newGridArray[redCd[0]][redCd[1]] === forbiddenColor){
+      // $('#game').toggle()
+      $('.title').css("background-color", "chartreuse")
 
+      console.log(redCd)
+    }}
 
-    var redCd = [p1.y/80,p1.x/80]
-
-    if (newGridArray[redCd[0]][redCd[1]] === 1){
-      $('#game').toggle()
-      $('#title').css("background-color", "red")
-
-    }
-
-console.log(redCd)
 
