@@ -57,7 +57,9 @@ $(document).ready(function () {
 
   var changeGame = 0;
   ////////////////////////////////////////// UPDATE AND DRAW
-
+  window.onload = function(){
+    updateMenu()
+  }
   
   function updateMenu (){
     window.onload = function(){
@@ -230,7 +232,10 @@ $(document).ready(function () {
         break;
     }
 
-    event.preventDefault();
+    if ([37, 38, 39, 40].includes(event.keyCode)) {
+      event.preventDefault();
+    }
+
     if (changeGame == 1) {
       update()
       window.onload = function(){
