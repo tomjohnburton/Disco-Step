@@ -86,7 +86,7 @@ function drawEverything() {
       if (specialCdX == p1.x && specialCdY == p1.y){
         time += 5
         $('#time').text(time)
-        newGridArray = [];
+        newGridArray = [];  
         specialCd = [];
         randomArray(10);
         generateSpecial();
@@ -155,10 +155,18 @@ function drawGrid(){
       if (newGridArray[col][row] == 4){
       ctx.fillStyle = 'black'
       ctx.fillRect(row*80,col*80,80,80)}
+
     
       if (newGridArray[col][row]<4){
+        ctx.fillStyle = 'black'
+        ctx.fillRect(row*80,col*80,80,80)
+        ctx.stroke()
       ctx.fillStyle = colors[newGridArray[col][row]]
-      ctx.fillRect(row*80,col*80,80,80)}
+      ctx.fillRect(row*80,col*80,74,74)
+      // ctx.save()
+      
+    }
+
       }
     }
     }
