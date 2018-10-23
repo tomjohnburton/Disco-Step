@@ -1,21 +1,21 @@
 
-var colors = ['blue','red','gold','yellow','black']
-var forbiddenColor = randomNumber(4)
+var colors = ['blue','red','gold','yellow','black'];
+var forbiddenColor = randomNumber(4);
 
 
 
 function randomArray (size){
  return new Array(size).fill(0).map(function(){
    
-   return Math.floor(Math.random()*4)
- }) 
+   return Math.floor(Math.random()*4);
+ }); 
 }
 
 function blankArray (size){
- return new Array(size).fill(0) 
+ return new Array(size).fill(0); 
 }
-var wallsY = randomArray(20)
-var wallsX = randomArray(20)
+var wallsY = randomArray(20);
+var wallsX = randomArray(20);
 
 
 function structuredArray (array){
@@ -27,28 +27,28 @@ function structuredArray (array){
       
     }
   }
-  return array
+  return array;
 }
 
-var newGridArray = []
+var newGridArray = [];
 
 function createNewGridArray(){
 for (var i = 0 ; i <20 ; i++) {
-newGridArray.push(randomArray(20))
+newGridArray.push(randomArray(20));
 }
-return newGridArray
+return newGridArray;
 }
 
 
 function randomNumber(range){
-  return Math.floor(Math.random()*range)
+  return Math.floor(Math.random()*range);
 }
 
 
 
-var specialCd = []
+var specialCd = [];
 function generateSpecial(){
-  var special = [randomNumber(10),randomNumber(10)]
+  var special = [randomNumber(10),randomNumber(10)];
   return specialCd = special;
 }
 generateSpecial()
