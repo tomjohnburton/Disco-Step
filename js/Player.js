@@ -8,13 +8,10 @@ class Player {
     this.score = 0
     this.img = new Image();
     this.img.src = '/Images/Dancer.gif'
-    this.img_obj = {
-      'source': null,
-      'current': 0,
-      'total_frames': 16,
-      'width': 16,
-      'height': 16
-  }}
+    this.imgP2 = new Image()
+    this.imgP2.src = '/Images/Dancer2.png'
+  
+  }
 
 
 
@@ -62,6 +59,10 @@ class Player {
 
 
 
+  }
+
+  drawP2 (){
+    this.ctx.drawImage(this.imgP2,this.x-10,this.y-14,100,100)
   }
 }
 
