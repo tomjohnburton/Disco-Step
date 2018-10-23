@@ -7,9 +7,9 @@ class Player {
     this.y = 0
     this.score = 0
     this.img = new Image();
-    this.img.src = '/Images/Dancer.gif'
+    this.img.src = 'Images/Dancer.gif'
     this.imgP2 = new Image()
-    this.imgP2.src = '/Images/Dancer2.png'
+    this.imgP2.src = 'Images/Dancer2.png'
   
   }
 
@@ -78,7 +78,7 @@ class Player {
 // img.onload = function () { // Triggered when image has finished loading.
 //   img_obj.source = img;  // we set the image source for our object.
 // }
-// img.src = '/Images/Dancer.gif'; // contains an image of size 256x16
+// img.src = 'Images/Dancer.gif'; // contains an image of size 256x16
 //                           // with 16 frames of size 16x16
 
 // function draw_anim(ctx, x, y, iobj) { // ctx is the canvas 2d ctx.

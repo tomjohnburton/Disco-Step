@@ -48,10 +48,10 @@ $(document).ready(function () {
   var height = canvas.height;
 
   var img = new Image();
-  img.src = '/Images/DiscoStepTemp.png';
+  img.src = 'Images/DiscoStepTemp.png';
 
   var arrowImg = new Image();
-  arrowImg.src = '/Images/Right-Arrow.png';
+  arrowImg.src = 'Images/Right-Arrow.png';
   
   var c1 = 0;
 
