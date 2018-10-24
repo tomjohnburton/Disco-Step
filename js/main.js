@@ -1,4 +1,8 @@
+
+
 $(document).ready(function () {
+
+
 
   ////////////////////////////////////////// OPENING SCREEN
 
@@ -58,12 +62,53 @@ $(document).ready(function () {
   var changeGame = 0;
   ////////////////////////////////////////// UPDATE AND DRAW
   window.onload = function(){
-    updateMenu()
-  }
+    updateMenu();
+  };
   
+  
+  ////////////////////////////////////////// TIMER 
+
+  var time = 10;
+  function countdown (){
+  
+  
+    setInterval(function () {
+      $('#time').text(time);
+      time--;
+    }, 1000);
+
+
+  }
+  countdown()
+
+
+
+
+  ////////////////////////////////////////// PREVENT GRID CAUSING INSTANT GAME OVER
+
+  var counter = 0;
+  var y = specialCd[0];
+  var x = specialCd[1];
+
+  while (newGridArray[9][9] == forbiddenColor) {
+    newGridArray = [];
+    createNewGridArray();
+    drawGrid();
+
+    console.log('pre game impossibility prevention')
+  }
+
+  while(time == 0){
+    gameOver()
+    console.log('time gameover')
+  }
+
+  ////////////////////////////////////////// UPDATE 
+
   function updateMenu (){
     window.onload = function(){
-    drawEverythingMenu()}
+    drawEverythingMenu();
+  };
     drawEverythingMenu();
   }
   
@@ -72,23 +117,24 @@ $(document).ready(function () {
     drawGridMenu();
 
     if (p1.x == 640 && p1.y == 480 ){
-      c1 = 1
+      c1 = 1;
     } else if (p1.x == 640 && p1.y == 240 ){
       c1 = 0;
     } else if (p1.x == 640 && p1.y == 720){
-      c1 = 2
+      c1 = 2;
     }
 
     switch (c1) {
       case 1:
-        p1.drawP2()
+        p1.drawP2();
         ctx.fillStyle = 'blue';
         ctx.fillRect(640, 480, 80, 80);
         break;
       case 2:
-        ctx.fillStyle = 'blue'
-        ctx.fillRect(640, 720, 80, 80)
+        ctx.fillStyle = 'blue';
+        ctx.fillRect(640, 720, 80, 80);
         changeGame = 1;  
+        $('.background-GIF').removeClass()
 
         break;
         
@@ -122,45 +168,15 @@ $(document).ready(function () {
 
 
   }
-  ////////////////////////////////////////// TIMER 
 
-  function countdown (){
-    var time = 10;
-  
-  
-    setInterval(function () {
-      $('#time').text(time);
-      time--
-    }, 1000);
-
-
-  }
-
-
-
-
-  ////////////////////////////////////////// PREVENT GRID CAUSING INSTANT GAME OVER
-
-  var counter = 0;
-  var y = specialCd[0]
-  var x = specialCd[1];
-
-  if (newGridArray[0][0] == forbiddenColor) {
-    newGridArray = [];
-    createNewGridArray();
-    drawGrid();
-    p1.draw()
-  }
-
-
-  ////////////////////////////////////////// UPDATE 
 
   function update() {
 
 
 
+
     if (specialCdX == p1.x && specialCdY == p1.y) {
-      time += 5
+      time += 5;
       $('#time').text(time);
       newGridArray = [];
       specialCd = [];
@@ -176,19 +192,17 @@ $(document).ready(function () {
         console.log('Random', forbiddenColor);
 
       }
+      
       while (newGridArray[p1.y / 80][p1.x / 80] === forbiddenColor || specialCdX == p1.x && specialCdY == p1.y || (newGridArray[y - 1][x] == forbiddenColor && newGridArray[y + 1][x] == forbiddenColor && newGridArray[y][x - 1] == forbiddenColor && newGridArray[y][x + 1] == forbiddenColor)) {
-        // console.log(newGridArray)
-        console.log('newArray Called')
-
-
+        console.log('forbidden arrangement prevented');
         newGridArray = [];
         createNewGridArray();
-        drawGrid();
-        p1.draw()
 
 
       }
-      drawGrid()
+
+
+      drawGrid();
       p1.draw();
       counter++;
       $('#score').text(counter);
@@ -197,7 +211,7 @@ $(document).ready(function () {
     }
     $('body').css("background-color", colors[forbiddenColor]);
 
-    var redCd = [p1.y / 80, p1.x / 80]
+    var redCd = [p1.y / 80, p1.x / 80];
     if (newGridArray[redCd[0]][redCd[1]] === forbiddenColor) {
       gameOver();
     }
@@ -205,7 +219,7 @@ $(document).ready(function () {
 
 
     window.onload = function(){
-    drawEverything()};
+    drawEverything();};
     drawEverything();
 
   }
@@ -237,40 +251,38 @@ $(document).ready(function () {
     }
 
     if (changeGame == 1) {
-      update()
+      update();
       window.onload = function(){
-        drawEverything()
-      }
+        drawEverything();
+      };
     } else if (changeGame == 0){
-      updateMenu()
+      updateMenu();
 
     }
-      // updateMenu()
-        // update()
 
-  }
+  };
 
 
   ////////////////////////////////////////// GRID DRAWING
 
   function drawGrid() {
-    newGridArray[specialCd[0]][specialCd[1]] = 4
+    newGridArray[specialCd[0]][specialCd[1]] = 4;
     for (var col = 0; col < 20; col++) {
       for (var row = 0; row < 20; row++) {
 
         // Treasure
         if (newGridArray[col][row] == 4) {
-          ctx.fillStyle = 'black'
-          ctx.fillRect(row * 80, col * 80, 80, 80)
+          ctx.fillStyle = 'black';
+          ctx.fillRect(row * 80, col * 80, 80, 80);
         }
 
         // Rest of the grid
         if (newGridArray[col][row] < 4) {
-          ctx.fillStyle = 'black'
-          ctx.fillRect(row * 80, col * 80, 80, 80)
-          ctx.stroke()
-          ctx.fillStyle = colors[newGridArray[col][row]]
-          ctx.fillRect(3 + row * 80, 3 + col * 80, 74, 74)
+          ctx.fillStyle = 'black';
+          ctx.fillRect(row * 80, col * 80, 80, 80);
+          ctx.stroke();
+          ctx.fillStyle = colors[newGridArray[col][row]];
+          ctx.fillRect(3 + row * 80, 3 + col * 80, 74, 74);
 
 
         }
@@ -282,36 +294,49 @@ $(document).ready(function () {
 
 
   function drawGridMenu() {
-    newGridArray[specialCd[0]][specialCd[1]] = 4
+    newGridArray[specialCd[0]][specialCd[1]] = 4;
     for (var col = 0; col < 20; col++) {
       for (var row = 0; row < 20; row++) {
         if (row % 2 == 0 && col % 3 == 0 ){
-          console.log('confirmed');
           ctx.fillStyle = 'red';
-          ctx.fillRect(row * 80, col * 80, 80, 80)
+          ctx.fillRect(row * 80, col * 80, 80, 80);
         } else {
-        ctx.save()
-        ctx.fillStyle = 'yellow'
-        ctx.fillRect(row * 80, col * 80, 80, 80)
+        ctx.save();
+        ctx.fillStyle = 'yellow';
+        ctx.fillRect(row * 80, col * 80, 80, 80);
           }
       }
     }
   }
 
-  console.log(p1.x, p1.y)
+function drawGridGameOver() {
+  newGridArray[specialCd[0]][specialCd[1]] = 4;
+  for (var col = 0; col < 20; col++) {
+    for (var row = 0; row < 20; row++) {
+      if (row % 2 == 0 && col % 3 == 0 ){
+        console.log('confirmed');
+        ctx.fillStyle = 'black';
+        ctx.fillRect(row * 80, col * 80, 80, 80);
+    }
+  }
+}
+  
+}
+
+  console.log(p1.x, p1.y);
 
 
 
   ////////////////////////////////////////// GAME OVER
   function gameOver() {
     // $('#game').toggle()
-    $('.title').css("background-color", "chartreuse")
-    var col = 0
-    var row = 0
+    $('.title').css("background-color", "chartreuse");
+    var col = 0;
+    var row = 0;
 
 
 
-    var interval = setInterval(addRed, 50)
+    var interval = setInterval(addRed, 50);
 
 
     function addRed() {
@@ -323,7 +348,7 @@ $(document).ready(function () {
       }
       if (row == 10) {
         col++;
-        row = 0
+        row = 0;
       }
       drawGrid();
     }
@@ -333,9 +358,9 @@ $(document).ready(function () {
     }
 
     setTimeout(() => {
-      ctx.fillStyle = "black"
+      ctx.fillStyle = "black";
       ctx.font = "200px Arial";
-      ctx.fillText('YOU LOSE', 300, 400, 200)
+      ctx.fillText('YOU LOSE', 300, 400, 200);
 
     }, 5100);
   }
@@ -344,12 +369,12 @@ $(document).ready(function () {
 
 
   function colorChange(){
-  var col = 0
-    var row = 0
+  var col = 0;
+    var row = 0;
 
 
 
-    var interval = setInterval(addRed, 50)
+    var interval = setInterval(addRed, 50);
 
 
     function addRed() {
@@ -361,7 +386,7 @@ $(document).ready(function () {
       }
       if (row == 10) {
         col++;
-        row = 0
+        row = 0;
       }
       drawGridMenu();
     }
@@ -372,4 +397,4 @@ $(document).ready(function () {
   }
 
 /////////////////////////////////// BOTTOM OF CODE
-})
+});
