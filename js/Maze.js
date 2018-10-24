@@ -1,5 +1,5 @@
 
-var colors = ['blue','red','purple','yellow','black'];
+var colors = ['blue','red','purple','yellow','black','green'];
 var forbiddenColor = randomNumber(4);
 
 
@@ -58,11 +58,17 @@ createNewGridArray()
 // var specialColor = 4
 var specialCdY = specialCd[0]*80
 var specialCdX = specialCd[1]*80
+// specialCd[0] = 0;
+// specialCd[1] = 1
+
+// Score dependencies 
+
+
 
 
 console.log('specialCD',specialCd)
 
-console.log('specialCD X,Y', specialCdX,specialCdY)
+
 // var specialCd = [0,2]
 
 
