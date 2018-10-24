@@ -1,6 +1,7 @@
-
-
 $(document).ready(function () {
+
+
+
 
 
 
@@ -56,39 +57,65 @@ $(document).ready(function () {
 
   var arrowImg = new Image();
   arrowImg.src = 'Images/Right-Arrow.png';
-  
+
   var c1 = 0;
 
   var changeGame = 0;
+
+  function resize() {
+    // Our canvas must cover full height of screen
+    // regardless of the resolution
+    var height = window.innerHeight * 0.9;
+
+    // So we need to calculate the proper scaled width
+    // that should work well with every resolution
+    var ratio = canvas.width / canvas.height;
+    var width = height * ratio;
+
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+  }
+
+  window.addEventListener('load', resize, false);
+  window.addEventListener('resize', resize, false);
+
+
+
+
+
+
+
+
   ////////////////////////////////////////// UPDATE AND DRAW
-  window.onload = function(){
+  window.onload = function () {
     updateMenu();
   };
-  
-  
+
+
   ////////////////////////////////////////// TIMER 
 
   var time = 10;
-  function countdown (){
-  
-  
+  var countdown = function () {
+
+
     setInterval(function () {
-      $('#time').text(time);
       time--;
+      console.log(time)
+      if (time < 0) {
+        time = 0
+        stop(countdown)
+      }
+      $('#time').text(time);
     }, 1000);
 
-
   }
-  countdown()
 
 
+  // countdown()
 
 
   ////////////////////////////////////////// PREVENT GRID CAUSING INSTANT GAME OVER
 
-  var counter = 0;
-  var y = specialCd[0];
-  var x = specialCd[1];
 
   while (newGridArray[9][9] == forbiddenColor) {
     newGridArray = [];
@@ -98,29 +125,50 @@ $(document).ready(function () {
     console.log('pre game impossibility prevention')
   }
 
-  while(time == 0){
-    gameOver()
-    console.log('time gameover')
+
+  ////////////////////////////////////////// GAME OVER TIMER
+
+  var timeGameOver = setInterval(function () {
+    if (time == 0) {
+      gameOver()
+      console.log('time gameover')
+
+      stop(timeGameOver)
+    }
+
+  }, 1000)
+
+
+
+  ////////////////////////////////////////// DRAW EVERYTHING FUNCTIONS
+
+  function drawEverythingGameOver() {
+    ctx.clearRect(0, 0, width, height);
+    drawGridGameOver();
+    p1.draw()
+
+
+
   }
 
-  ////////////////////////////////////////// UPDATE 
 
-  function updateMenu (){
-    window.onload = function(){
-    drawEverythingMenu();
-  };
-    drawEverythingMenu();
-  }
-  
-  function drawEverythingMenu (){
+
+
+  var counter = 0;
+  var y = specialCd[0];
+  var x = specialCd[1];
+
+
+
+  function drawEverythingMenu() {
     ctx.clearRect(0, 0, width, height);
     drawGridMenu();
 
-    if (p1.x == 640 && p1.y == 480 ){
+    if (p1.x == 640 && p1.y == 480) {
       c1 = 1;
-    } else if (p1.x == 640 && p1.y == 240 ){
+    } else if (p1.x == 640 && p1.y == 240) {
       c1 = 0;
-    } else if (p1.x == 640 && p1.y == 720){
+    } else if (p1.x == 640 && p1.y == 720) {
       c1 = 2;
     }
 
@@ -133,22 +181,22 @@ $(document).ready(function () {
       case 2:
         ctx.fillStyle = 'blue';
         ctx.fillRect(640, 720, 80, 80);
-        changeGame = 1;  
+        changeGame = 1;
         $('.background-GIF').removeClass()
 
         break;
-        
-        default:
+
+      default:
         p1.draw();
         ctx.fillStyle = 'blue';
         ctx.fillRect(640, 240, 80, 80);
         break;
     }
 
-    ctx.drawImage(img,140,50,500,230);
-    ctx.drawImage(p1.img,640-10,240-14,100,100);
-    ctx.drawImage(p1.imgP2,640-10,480-14,100,100);
-    ctx.drawImage(arrowImg,650,730,60,60);
+    ctx.drawImage(img, 140, 50, 500, 230);
+    ctx.drawImage(p1.img, 640 - 10, 240 - 14, 100, 100);
+    ctx.drawImage(p1.imgP2, 640 - 10, 480 - 14, 100, 100);
+    ctx.drawImage(arrowImg, 650, 730, 60, 60);
 
 
     return changeGame;
@@ -156,23 +204,38 @@ $(document).ready(function () {
   }
 
 
-  console.log('changegame',changeGame);
+  console.log('changegame', changeGame);
 
-  
+
   function drawEverything() {
     ctx.clearRect(0, 0, width, height);
     drawGrid();
-    p1.draw();
+    switch (c1) {
+      case 1:
+        p1.drawP2()
+        break;
+
+      default:
+        p1.draw()
+        break;
+    }
+  }
 
 
 
 
+
+  ////////////////////////////////////////// UPDATE 
+
+  function updateMenu() {
+    window.onload = function () {
+      drawEverythingMenu();
+    };
+    drawEverythingMenu();
   }
 
 
   function update() {
-
-
 
 
     if (specialCdX == p1.x && specialCdY == p1.y) {
@@ -192,7 +255,7 @@ $(document).ready(function () {
         console.log('Random', forbiddenColor);
 
       }
-      
+
       while (newGridArray[p1.y / 80][p1.x / 80] === forbiddenColor || specialCdX == p1.x && specialCdY == p1.y || (newGridArray[y - 1][x] == forbiddenColor && newGridArray[y + 1][x] == forbiddenColor && newGridArray[y][x - 1] == forbiddenColor && newGridArray[y][x + 1] == forbiddenColor)) {
         console.log('forbidden arrangement prevented');
         newGridArray = [];
@@ -200,10 +263,20 @@ $(document).ready(function () {
 
 
       }
+      console.log(c1)
 
 
       drawGrid();
-      p1.draw();
+      switch (c1) {
+        case 1:
+          p1.drawP2()
+          break;
+
+        default:
+          p1.draw()
+          break;
+      }
+
       counter++;
       $('#score').text(counter);
 
@@ -216,14 +289,15 @@ $(document).ready(function () {
       gameOver();
     }
 
-
-
-    window.onload = function(){
-    drawEverything();};
     drawEverything();
 
   }
 
+
+  function updateGameOver() {
+    drawEverythingGameOver()
+
+  }
 
 
 
@@ -252,13 +326,18 @@ $(document).ready(function () {
 
     if (changeGame == 1) {
       update();
-      window.onload = function(){
+      window.onload = function () {
         drawEverything();
       };
-    } else if (changeGame == 0){
+    } else if (changeGame == 0) {
       updateMenu();
-
+    } else if (changeGame == 2) {
+      updateGameOver();
     }
+
+    // update()
+    updateGameOver()
+    // updateMenu()
 
   };
 
@@ -297,31 +376,52 @@ $(document).ready(function () {
     newGridArray[specialCd[0]][specialCd[1]] = 4;
     for (var col = 0; col < 20; col++) {
       for (var row = 0; row < 20; row++) {
-        if (row % 2 == 0 && col % 3 == 0 ){
+        if (row % 2 == 0 && col % 3 == 0) {
           ctx.fillStyle = 'red';
           ctx.fillRect(row * 80, col * 80, 80, 80);
         } else {
-        ctx.save();
-        ctx.fillStyle = 'yellow';
-        ctx.fillRect(row * 80, col * 80, 80, 80);
-          }
+          ctx.save();
+          ctx.fillStyle = 'yellow';
+          ctx.fillRect(row * 80, col * 80, 80, 80);
+        }
       }
     }
   }
 
-function drawGridGameOver() {
-  newGridArray[specialCd[0]][specialCd[1]] = 4;
-  for (var col = 0; col < 20; col++) {
-    for (var row = 0; row < 20; row++) {
-      if (row % 2 == 0 && col % 3 == 0 ){
+  function drawGridGameOver() {
+    newGridArray[specialCd[0]][specialCd[1]] = 4;
+    for (var col = 0; col < 20; col++) {
+      for (var row = 0; row < 20; row++) {
         console.log('confirmed');
-        ctx.fillStyle = 'black';
+        ctx.fillStyle = 'white'
         ctx.fillRect(row * 80, col * 80, 80, 80);
+        ctx.fillStyle = 'black';
+        ctx.fillRect(3 + row * 80, 3 + col * 80, 74, 74);
+
+        ctx.fillStyle = 'red';
+        ctx.fillRect(3 + 0 * 80, 3 + 3 * 80, 74, 74)
+        ctx.fillRect(3 + 0 * 80, 3 + 4 * 80, 74, 74)
+        ctx.fillRect(3 + 0 * 80, 3 + 5 * 80, 74, 74)
+        ctx.fillRect(3 + 0 * 80, 3 + 6 * 80, 74, 74)
+        ctx.fillStyle = 'blue'
+        ctx.fillRect(3 + 9 * 80, 3 + 3 * 80, 74, 74)
+        ctx.fillRect(3 + 9 * 80, 3 + 4 * 80, 74, 74)
+        ctx.fillRect(3 + 9 * 80, 3 + 5 * 80, 74, 74)
+        ctx.fillRect(3 + 9 * 80, 3 + 6 * 80, 74, 74)
+
+        ctx.fillStyle = "red";
+        ctx.font = "50px Arial";
+        ctx.fillText('HANG UP YOUR', 100, 300);
+        ctx.fillText('DANCING SHOES', 100, 375);
+
+        ctx.fillStyle = "blue";
+        ctx.font = "50px Arial";
+        ctx.fillText("LET'S BOOGIE", 350, 540);
+
+      }
     }
+
   }
-}
-  
-}
 
   console.log(p1.x, p1.y);
 
@@ -330,7 +430,7 @@ function drawGridGameOver() {
   ////////////////////////////////////////// GAME OVER
   function gameOver() {
     // $('#game').toggle()
-    $('.title').css("background-color", "chartreuse");
+    // $('.title').css("background-color", "chartreuse");
     var col = 0;
     var row = 0;
 
@@ -344,7 +444,7 @@ function drawGridGameOver() {
       newGridArray[col][row] = forbiddenColor;
       row++;
       if (col == 10) {
-        stop();
+        stop(interval);
       }
       if (row == 10) {
         col++;
@@ -353,7 +453,7 @@ function drawGridGameOver() {
       drawGrid();
     }
 
-    function stop() {
+    function stop(interval) {
       clearInterval(interval);
     }
 
@@ -363,13 +463,22 @@ function drawGridGameOver() {
       ctx.fillText('YOU LOSE', 300, 400, 200);
 
     }, 5100);
+
+    stop(timeGameOver)
+
+    changeGame = 2
+    console.log(changeGame)
+
+
+
+
   }
 
 
 
 
-  function colorChange(){
-  var col = 0;
+  function colorChange() {
+    var col = 0;
     var row = 0;
 
 
@@ -396,5 +505,5 @@ function drawGridGameOver() {
     }
   }
 
-/////////////////////////////////// BOTTOM OF CODE
+  /////////////////////////////////// BOTTOM OF CODE
 });

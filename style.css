@@ -1,7 +1,11 @@
-body {
-  margin: 0;
-
-
+html, body {
+  margin: 0px;
+  border: 0;
+  display: block;  /* No floating content on sides */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 canvas {
@@ -43,4 +47,8 @@ canvas {
   background-image: url('Images/NightFever.gif');
   background-size: cover
   
+}
+
+.game {
+
 }

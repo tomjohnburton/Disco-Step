@@ -55,14 +55,14 @@ generateSpecial()
 createNewGridArray()
 // structuredArray(newGridArray)
 
-var specialColor = 4
+// var specialColor = 4
 var specialCdY = specialCd[0]*80
 var specialCdX = specialCd[1]*80
 
 
-console.log(specialCd)
-console.log(specialCdX,specialCdY)
+console.log('specialCD',specialCd)
 
+console.log('specialCD X,Y', specialCdX,specialCdY)
 // var specialCd = [0,2]
 
 
