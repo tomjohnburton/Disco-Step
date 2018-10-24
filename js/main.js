@@ -125,7 +125,7 @@
   ////////////////////////////////////////// PREVENT GRID CAUSING INSTANT GAME OVER
 
   function preventImpossible() {
-    while (newGridArray[9][9] == forbiddenColor) {
+    while (newGridArray[9][9] == forbiddenColor && newGridArray[9][8] == forbiddenColor  ) {
       newGridArray = [];
       createNewGridArray();
       drawGrid();
@@ -186,10 +186,11 @@
       ctx.fillStyle = 'blue';
       ctx.fillRect(3 + 640, 3 + 720, 74, 74);
       changeGame = 1;
-      preventImpossible();
       $('.background-GIF').removeClass();
-      drawGrid()
-      update()
+      // update()
+      // drawGrid()
+      preventImpossible();
+      countdown()
     }
 
 
@@ -200,15 +201,15 @@
         ctx.fillRect(3 + 480, 3 + 480, 74, 74);
         break;
 
-      case 2: // START GAME
-        ctx.fillStyle = 'blue';
-        ctx.fillRect(3 + 640, 3 + 720, 74, 74);
-        changeGame = 1;
-        preventImpossible();
-        $('.background-GIF').removeClass();
-        drawGrid()
-        update()
-        break;
+      // case 2: // START GAME
+      //   ctx.fillStyle = 'blue';
+      //   ctx.fillRect(3 + 640, 3 + 720, 74, 74);
+      //   changeGame = 1;
+      //   preventImpossible();
+      //   $('.background-GIF').removeClass();
+      //   drawGrid()
+      //   update()
+      //   break;
 
       case 3:
         ctx.fillStyle = 'blue';
@@ -386,21 +387,24 @@
     // NEW GAME
 
     if (p1.x >= 720 && p1.y >= 240 && p1.y <= 560 && changeGame == 2) {
-      changeGame = 1;
-      time = 10;
-      // countdown()
-      ctx.clearRect(0, 0, width, height);
-      specialCd = [];
-      newGridArray = [];
-      randomArray(10);
-      generateSpecial();
-      specialCdY = specialCd[0] * 80;
-      specialCdX = specialCd[1] * 80;
-      p1.x = 720;
-      p1.y = 720;
-      createNewGridArray();
-      drawEverything();
-      update()
+      document.location.reload() ;
+
+
+      // changeGame = 1;
+      // time = 10;
+      // // countdown()
+      // ctx.clearRect(0, 0, width, height);
+      // specialCd = [];
+      // newGridArray = [];
+      // randomArray(10);
+      // generateSpecial();
+      // specialCdY = specialCd[0] * 80;
+      // specialCdX = specialCd[1] * 80;
+      // p1.x = 720;
+      // p1.y = 720;
+      // createNewGridArray();
+      // drawEverything();
+      // update()
 
     }
     if (p1.x < 80 && p1.y >= 240 && p1.y <= 560 && changeGame == 2) {
