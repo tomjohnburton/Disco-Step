@@ -1,8 +1,8 @@
 function introSpeech (){
-  $('#speech').attr('src','../Images/Layer 0 (1).png');
+  $('#speech').attr('src','Images/Layer 0 (1).png');
 
   setTimeout(() => {
-    $('#speech').attr('src','../Images/Layer 0 (9).png')
+    $('#speech').attr('src','../Images/layer 0 (9).png')
     
   }, thousand(5));
   setTimeout(() => {
