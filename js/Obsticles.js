@@ -45,6 +45,7 @@ if (specialCdX == p1.x && specialCdY == p1.y ) {
   ////
   if (changeGame == 1) {
     $('#speech').attr('src','./Images/Encouragement/layer'+imageChange+'.png')
+    $('#speech').attr('src','./Images/Encouragement/layer'+imageChange+'.png')
   
     if (imageChange < 5) {
       imageChange ++ 
