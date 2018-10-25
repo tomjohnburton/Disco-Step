@@ -12,7 +12,7 @@
   $('#canvasMenu').toggle();
   $('#canvasGameOver').toggle();
 
-
+//
 
   ////////////////////////////////////////// CANVAS DEFINITION
 
