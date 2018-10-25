@@ -13,6 +13,20 @@ canvas {
   /* border: 1px solid black */
 }
 
+#speech {
+  height: 23vh;
+}
+
+.tutorialImg {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap
+}
+
+#JT {
+  height: 70vh;
+}
+
 .screens {
   display: flex;
   flex-direction: row;
@@ -49,6 +63,3 @@ canvas {
   
 }
 
-.game {
-
-}

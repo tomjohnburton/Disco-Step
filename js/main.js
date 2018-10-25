@@ -13,33 +13,6 @@
   $('#canvasGameOver').toggle();
 
 
-  // $('.play-left').click( function(){
-  //   $('.play-left').toggle()
-  //   $( '.screen-left' ).animate({
-  //     opacity: 0.25,
-  //     left: "+=50",
-  //     width: "0%"
-  //   }, 5000, function() {
-  //     // Animation complete.
-  //   });
-
-  //   $( '.screen-right' ).animate({
-  //     opacity: 0.25,
-  //     left: "+=50",
-  //     width: "0%"
-  //   }, 5000, function() {
-  //     // Animation complete.
-  //   });
-
-  // setTimeout(() => {
-  //   $('#game').toggle()
-  //   $('.screens').toggle()
-
-  // }, 5100);
-  // })
-
-
-
 
   ////////////////////////////////////////// CANVAS DEFINITION
 
@@ -86,8 +59,7 @@
   window.addEventListener('resize', resize, false);
 
 
-
-
+  introSpeech()
 
 
 
@@ -101,31 +73,29 @@
   ////////////////////////////////////////// TIMER 
 
   var time = 10;
-  var countdown = function () {
+  
+var countdownFn = function () {
+  time--;
+  console.log(time)
+
+  if (time < 0) {
+    time = 0
+    clearInterval(countdown());
+
+  }
+  $('#time').text(time);
+  console.log(time)
+}
+
+ var countdown =  setInterval(countdownFn(), 1000);
 
 
-    setInterval(function () {
-      time--;
-
-      if (time < 0) {
-        time = 0
-        clearInterval(countdown());
-      }
-      $('#time').text(time);
-      console.log(time)
-    }, 1000);
-
-
-  };
-
-
-  // countdown()
 
 
   ////////////////////////////////////////// PREVENT GRID CAUSING INSTANT GAME OVER
 
   function preventImpossible() {
-    while (newGridArray[9][9] == forbiddenColor && newGridArray[9][8] == forbiddenColor  ) {
+    while (newGridArray[9][9] == forbiddenColor || newGridArray[9][8] == forbiddenColor  ) {
       newGridArray = [];
       createNewGridArray();
       drawGrid();
@@ -134,13 +104,14 @@
     }
   }
 
-  preventImpossible();
+  // preventImpossible();
 
   ////////////////////////////////////////// GAME OVER TIMER
 
   var timeGameOver = setInterval(function () {
     if (time == 0) {
       gameOver()
+      gameOverSound.play()
       console.log('time gameover');
 
       clearInterval(countdown());
@@ -150,7 +121,18 @@
 
 
 
+
+
   ////////////////////////////////////////// DRAW EVERYTHING FUNCTIONS
+
+
+  function drawEverythingDanceClass(){
+    ctx.clearRect(0, 0, width, height);
+    drawEverything()
+    p1.draw();
+
+
+  }
 
   function drawEverythingGameOver() {
     ctx.clearRect(0, 0, width, height);
@@ -171,6 +153,8 @@
 
 
   function drawEverythingMenu() {
+    // mainMenuSound.play()
+
     ctx.clearRect(0, 0, width, height);
     drawGridMenu();
 
@@ -190,7 +174,7 @@
       // update()
       // drawGrid()
       preventImpossible();
-      countdown()
+      countdown
     }
 
 
@@ -214,6 +198,16 @@
       case 3:
         ctx.fillStyle = 'blue';
         ctx.fillRect(3 + 160, 3 + 720, 74, 74);
+        changeGame = 3;
+        tutorialSpeech()
+        setTimeout(() => {
+
+          document.location.reload() ;
+
+
+        }, thousand(41));
+
+
         break;
 
 
@@ -239,9 +233,12 @@
 
 
   function drawEverything() {
+    mainMenuSound.pause()
+    mainMenuSound.currentTime = 0
     console.log('c1',c1)
     ctx.clearRect(0, 0, width, height);
     drawGrid();
+    preventImpossible()
     switch (c1) {
       case 1:
         p1.drawP2()
@@ -259,6 +256,22 @@
 
   ////////////////////////////////////////// UPDATE 
 
+  // while (changeGame = 3) {
+  //   setTimeout(() => {
+  //     ctx.drawImage(arrowImg, 650, 730, 60, 60);
+  
+  
+  //   }, thousand(5));
+    
+  // }
+
+  function updateDanceClass (){
+    treasureCollected()
+    drawEverythingDanceClass()
+    
+  }
+
+
   function updateMenu() {
     window.onload = function () {
       drawEverythingMenu();
@@ -275,102 +288,14 @@
   function update() {
 
     console.log('update change');
+    
+    treasureCollected()
 
-
-    if (specialCdX == p1.x && specialCdY == p1.y) {
-      time += 5;
-      $('#time').text(time);
-
-
-      newGridArray = [];
-      specialCd = [];
-      randomArray(10);
-      generateSpecial();
-      specialCdY = specialCd[0] * 80;
-      specialCdX = specialCd[1] * 80;
-      createNewGridArray();
-
-      if (counter % 10 == 0 && scoreChange > 1) {
-        scoreChange--;
-        console.log('counter', counter % 2);
-        console.log('counter%', counter);
-        console.log('scorechange', scoreChange);
-
-      }
-      if (counter % scoreChange == 0) {
-
-        forbiddenColor = randomNumber(4);
-
-        console.log('Random', forbiddenColor);
-
-      }
-
-      if (newGridArray[y - 1] == undefined) {
-        while (newGridArray[p1.y / 80][p1.x / 80] === forbiddenColor || (newGridArray[9][x] == forbiddenColor && newGridArray[y + 1][x] == forbiddenColor && newGridArray[y][x - 1] == forbiddenColor && newGridArray[y][x + 1] == forbiddenColor)) {
-          newGridArray = [];
-          createNewGridArray();
-
-          console.log('conditional 1');
-        }
-
-
-      } else if (newGridArray[y+1] == undefined) {
-        while (newGridArray[p1.y / 80][p1.x / 80] === forbiddenColor || (newGridArray[y - 1][x] == forbiddenColor && newGridArray[0][x] == forbiddenColor && newGridArray[y][x - 1] == forbiddenColor && newGridArray[y][x + 1] == forbiddenColor)) {
-          newGridArray = [];
-          createNewGridArray();
-          console.log('conditional 2');
-        }
-
-
-      } else if (newGridArray[y][x-1]== undefined) {
-        while (newGridArray[p1.y / 80][p1.x / 80] === forbiddenColor || (newGridArray[y - 1][x] == forbiddenColor && newGridArray[y + 1][x] == forbiddenColor && newGridArray[y][9] == forbiddenColor && newGridArray[y][x + 1] == forbiddenColor)) {
-          newGridArray = [];
-          createNewGridArray();
-          console.log('conditional 3');
-        }
-
-      } else if (newGridArray[y][x+1]== undefined) {
-        while (newGridArray[p1.y / 80][p1.x / 80] === forbiddenColor || (newGridArray[y - 1][x] == forbiddenColor && newGridArray[y + 1][x] == forbiddenColor && newGridArray[y][x - 1] == forbiddenColor && newGridArray[y][0] == forbiddenColor)) {
-          newGridArray = [];
-          createNewGridArray();
-          console.log('conditional 4');
-        }
-
-
-      } else {
-
-        while (newGridArray[p1.y / 80][p1.x / 80] === forbiddenColor || (newGridArray[y - 1][x] == forbiddenColor && newGridArray[y + 1][x] == forbiddenColor && newGridArray[y][x - 1] == forbiddenColor && newGridArray[y][x + 1] == forbiddenColor)) {
-          console.log('forbidden arrangement prevented');
-          newGridArray = [];
-          createNewGridArray();
-          console.log('conditional 5');
-        }
-      }
-
-
-
-
-
-      drawGrid();
-      switch (c1) {
-        case 1:
-          p1.drawP2();
-          break;
-
-        default:
-          p1.draw();
-          break;
-      }
-
-      counter++;
-      $('#score').text(counter);
-
-
-    }
     $('body').css("background-color", colors[forbiddenColor]);
 
     var redCd = [p1.y / 80, p1.x / 80];
     if (newGridArray[redCd[0]][redCd[1]] === forbiddenColor) {
+      gameOverSound.play()
       gameOver();
       time = 0;
     }
@@ -439,6 +364,8 @@
 
   document.onkeydown = function (event) {
 
+    moveSound.play()
+
     switch (event.code) {
       case "ArrowUp":
         p1.move("up");
@@ -466,7 +393,9 @@
     } else if (changeGame == 0) {
       updateMenu();
     } else if (changeGame == 2) {
-      updateGameOver();
+      updateGameOver()
+    } else if (changeGame == 3) {
+      updateDanceClass();
     }
     // console.log('PLAYER X Y', p1.x, p1.y);
     // console.log('specialCD X,Y', specialCdX, specialCdY);
@@ -479,24 +408,24 @@
 
 
 
-     function testAbs() {
+    //  function testAbs() {
 
 
-      sortArray = [[Math.abs((xP+1)-xSp) +Math.abs(yP-ySp)],[Math.abs((xP-1)-xSp)+Math.abs(yP-ySp)],[Math.abs(xP-xSp) + Math.abs((yP-1)-ySp)],[Math.abs(xP-xSp)+Math.abs((yP+1)-ySp)]];
+    //   sortArray = [[Math.abs((xP+1)-xSp) +Math.abs(yP-ySp)],[Math.abs((xP-1)-xSp)+Math.abs(yP-ySp)],[Math.abs(xP-xSp) + Math.abs((yP-1)-ySp)],[Math.abs(xP-xSp)+Math.abs((yP+1)-ySp)]];
     
-      return sortArray;
+    //   return sortArray;
   
   
-    }
+    // }
   
-    function compare(ar){
-      for (var i = 0; i < ar.length; i++){
-        ar[i]-ar[i+1]
+    // function compare(ar){
+    //   for (var i = 0; i < ar.length; i++){
+    //     ar[i]-ar[i+1]
         
-      }
-      return ar;
+    //   }
+    //   return ar;
   
-    }
+    // }
 
       // console.log(sortArray)
       // console.log(compare(sortArray))
@@ -544,6 +473,7 @@
 
 
   function drawGridMenu() {
+
     newGridArray[specialCd[0]][specialCd[1]] = 4;
     for (var col = 0; col < 20; col++) {
       for (var row = 0; row < 20; row++) {
@@ -613,6 +543,8 @@
     var col = 0;
     var row = 0;
 
+    
+
 
 
     var interval = setInterval(addRed, 50);
@@ -637,9 +569,10 @@
     }
 
     setTimeout(() => {
-      ctx.fillStyle = !colors[forbiddenColor];
-      ctx.font = "400px Bookman";
-      ctx.fillText('YOU LOSE', 140, 400, 500);
+      ctx.fillStyle = colors[!forbiddenColor];
+      ctx.font = "350px Bookman";
+      ctx.fillText('YOU LOSE', 100, 350, 600);
+      ctx.fillText('Score: '+counter, 100, 700, 600);
 
     }, 5100);
 
