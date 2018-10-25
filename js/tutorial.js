@@ -30,7 +30,7 @@ function tutorialSpeech (){
 
   setTimeout(() => {
     $('#speech').attr('src','../Images/Speech-Bubbles/Layer 0 (3).png')
-    $('#JT').attr('src','../Images/JTR.png')
+    // $('#JT').attr('src','../Images/JTR.png')
     
   }, thousand(5));
   
