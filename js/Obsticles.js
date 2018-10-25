@@ -42,7 +42,7 @@ if (specialCdX == p1.x && specialCdY == p1.y ) {
   treasureSound.play()
   time += 5;
   $('#time').text(time);
-  
+  //
   if (changeGame == 1) {
     $('#speech').attr('src','./Images/Encouragement/Layer 0 ('+imageChange+').png')
   
