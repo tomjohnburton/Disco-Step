@@ -59,7 +59,7 @@
   window.addEventListener('resize', resize, false);
 
 
-  introSpeech()
+  introSpeech();
 
 
 
@@ -79,18 +79,16 @@
 
   countdownFnCall = setInterval(function () {
   time--;
-  console.log(time)
+  console.log(time);
 
   if (time < 0) {
-    time = 0
+    time = 0;
     clearInterval(countdownFnCall);
 
   }
   $('#time').text(time);
-  console.log(time)
-}
-,1000)
-}
+  console.log(time)},1000)}
+
 //  var countdown =  setInterval(countdownFn(), 1000);
 
 
@@ -161,7 +159,7 @@
 
     ctx.clearRect(0, 0, width, height);
     drawGridMenu();
-
+    
     if (p1.x == 480 && p1.y == 480) {
       c1 = 1;
     } else if (p1.x == 240 && p1.y == 480) {
@@ -169,15 +167,17 @@
     } else if (p1.x == 160 && p1.y == 720) {
       c1 = 3;
     }
-
+    
     if (p1.x == 640 && p1.y == 720){
-      ctx.fillStyle = 'blue';
-      ctx.fillRect(3 + 640, 3 + 720, 74, 74);
+      ctx.clearRect(0, 0, width, height);
+      scratchSound.play()
+      // ctx.fillStyle = 'blue';
+      // ctx.fillRect(3 + 640, 3 + 720, 74, 74);
       changeGame = 1;
       $('.background-GIF').removeClass();
-      // update()
-      drawGrid()
       preventImpossible();
+      // drawGrid()
+      // update()
       countdownFn()
     }
 
@@ -315,13 +315,13 @@
     if (p1.x >= 720 && p1.y >= 240 && p1.y <= 560 && changeGame == 2) {
       document.location.reload() ;
 
-      setTimeout(() => {
-        changeGame = 1;
-        drawGrid()
-        p1.draw()
-        update()
+      // setTimeout(() => {
+      //   changeGame = 1;
+      //   drawGrid()
+      //   p1.draw()
+      //   update()
         
-      }, 3000);
+      // }, 3000);
 
 
     }
@@ -390,6 +390,9 @@
     } else if (changeGame == 3) {
       updateDanceClass();
     }
+
+    console.log('changegame',changeGame)
+    console.log('c1',c1)
     // console.log('PLAYER X Y', p1.x, p1.y);
     // console.log('specialCD X,Y', specialCdX, specialCdY);
     // console.log(sortArray);
@@ -535,11 +538,11 @@
     // $('.title').css("background-color", "chartreuse");
     var col = 0;
     var row = 0;
-    saveHighScore(counter,'Player')
     gameOverSpeech()
     
-
-
+    
+    
+    saveHighScore(counter,'Player')
 
     var interval = setInterval(addRed, 50);
 

@@ -44,7 +44,7 @@ canvas {
   justify-content: space-around;
   align-items: center;
   width: 600px;
-  background-color: black;
+  /* background-color: black; */
   padding: 30px;
   border-left: 10px solid darkviolet;
   border-right: 10px solid darkviolet;
