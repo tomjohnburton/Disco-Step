@@ -157,7 +157,7 @@
 
 
   function drawEverythingMenu() {
-    // mainMenuSound.play()
+    mainMenuSound.play()
 
     ctx.clearRect(0, 0, width, height);
     drawGridMenu();
