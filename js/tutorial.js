@@ -9,7 +9,17 @@ function introSpeech (){
     
   }, thousand(10));
 
+}
 
+
+function gameOverSpeech (){
+  $('#speech').attr('src','../Images/gameOver/Layer 0 (7).png')
+  
+  
+  setTimeout(() => {
+    $('#speech').attr('src','../Images/gameOver/Layer 0 (8).png')
+
+  }, thousand(5));
 
 
 }
@@ -52,11 +62,30 @@ function tutorialSpeech (){
   }, thousand(30));
 
   setTimeout(() => {
-    $('#speech').attr('src','../Images/Speech-Bubbles/Layer 0 (8).png')
+    $('#speech').attr('src','../Images/Speech-Bubbles/Layer 0 (11).png')
     
   }, thousand(35));
+
+  setTimeout(() => {
+    $('#speech').attr('src','../Images/Speech-Bubbles/Layer 0 (10).png')
+    $('#time').css('color: chartreuse')
+    
+  }, thousand(40));
+
+  setTimeout(() => {
+    $('#speech').attr('src','../Images/Speech-Bubbles/Layer 0 (8).png')
+    
+  }, thousand(45));
+
+
+  setTimeout(() => {
+
+    document.location.reload() ;
+
+
+  }, thousand(51));
 }
 
 function thousand(a){
-  return a * 1000
+  return a * 1000;
 }

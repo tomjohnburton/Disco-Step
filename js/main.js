@@ -44,7 +44,7 @@
   function resize() {
     // Our canvas must cover full height of screen
     // regardless of the resolution
-    var height = window.innerHeight * 0.9;
+    var height = window.innerHeight * 0.8;
 
     // So we need to calculate the proper scaled width
     // that should work well with every resolution
@@ -73,21 +73,25 @@
   ////////////////////////////////////////// TIMER 
 
   var time = 10;
-  
-var countdownFn = function () {
+  var countdownFnCall;
+
+  function countdownFn(){
+
+  countdownFnCall = setInterval(function () {
   time--;
   console.log(time)
 
   if (time < 0) {
     time = 0
-    clearInterval(countdown());
+    clearInterval(countdownFnCall);
 
   }
   $('#time').text(time);
   console.log(time)
 }
-
- var countdown =  setInterval(countdownFn(), 1000);
+,1000)
+}
+//  var countdown =  setInterval(countdownFn(), 1000);
 
 
 
@@ -172,9 +176,9 @@ var countdownFn = function () {
       changeGame = 1;
       $('.background-GIF').removeClass();
       // update()
-      // drawGrid()
+      drawGrid()
       preventImpossible();
-      countdown
+      countdownFn()
     }
 
 
@@ -200,12 +204,7 @@ var countdownFn = function () {
         ctx.fillRect(3 + 160, 3 + 720, 74, 74);
         changeGame = 3;
         tutorialSpeech()
-        setTimeout(() => {
-
-          document.location.reload() ;
-
-
-        }, thousand(41));
+        
 
 
         break;
@@ -278,16 +277,18 @@ var countdownFn = function () {
     };
     drawEverythingMenu();
 
-
-    console.log('menu change');
-
   }
 
   var scoreChange = 5;
 
+
+
+
+
+
+
   function update() {
 
-    console.log('update change');
     
     treasureCollected()
 
@@ -314,22 +315,14 @@ var countdownFn = function () {
     if (p1.x >= 720 && p1.y >= 240 && p1.y <= 560 && changeGame == 2) {
       document.location.reload() ;
 
+      setTimeout(() => {
+        changeGame = 1;
+        drawGrid()
+        p1.draw()
+        update()
+        
+      }, 3000);
 
-      // changeGame = 1;
-      // time = 10;
-      // // countdown()
-      // ctx.clearRect(0, 0, width, height);
-      // specialCd = [];
-      // newGridArray = [];
-      // randomArray(10);
-      // generateSpecial();
-      // specialCdY = specialCd[0] * 80;
-      // specialCdX = specialCd[1] * 80;
-      // p1.x = 720;
-      // p1.y = 720;
-      // createNewGridArray();
-      // drawEverything();
-      // update()
 
     }
     if (p1.x < 80 && p1.y >= 240 && p1.y <= 560 && changeGame == 2) {
@@ -542,7 +535,8 @@ var countdownFn = function () {
     // $('.title').css("background-color", "chartreuse");
     var col = 0;
     var row = 0;
-
+    saveHighScore(counter,'Player')
+    gameOverSpeech()
     
 
 
@@ -569,7 +563,7 @@ var countdownFn = function () {
     }
 
     setTimeout(() => {
-      ctx.fillStyle = colors[!forbiddenColor];
+      ctx.fillStyle = colors[generateRandom(0,4)];
       ctx.font = "350px Bookman";
       ctx.fillText('YOU LOSE', 100, 350, 600);
       ctx.fillText('Score: '+counter, 100, 700, 600);
