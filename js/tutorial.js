@@ -38,7 +38,6 @@ function tutorialSpeech (){
   
   setTimeout(() => {
     $('#speech').attr('src','./Images/Layer 0 (3).png')
-    $('#JT').attr('src','./Images/JT.png')
     
   }, thousand(10));
 
@@ -64,12 +63,15 @@ function tutorialSpeech (){
 
   setTimeout(() => {
     $('#speech').attr('src','./Images/Layer 0 (11).png')
+    $('.background-GIF').removeClass();
+    $('body').css("background-color","red")
     
   }, thousand(35));
-
+  
   setTimeout(() => {
+    $('body').addClass('background-GIF');
     $('#speech').attr('src','./Images/Layer 0 (10).png')
-    $('#time').css('color: chartreuse')
+    $('#time').css('background-color', 'chartreuse')
     
   }, thousand(40));
 

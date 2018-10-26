@@ -1,5 +1,5 @@
 
-var colors = ['blue','red','purple','yellow','black','green'];
+var colors = ['blue','white','purple','yellow','black','green'];
 var forbiddenColor = randomNumber(4);
 
 

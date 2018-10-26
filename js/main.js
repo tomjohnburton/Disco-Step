@@ -446,7 +446,7 @@
         if (col % 3 == 0) {
           // ctx.fillStyle = 'black';
           // ctx.fillRect(row * 80, col * 80, 80, 80);
-          ctx.fillStyle = 'red';
+          ctx.fillStyle = 'white';
           ctx.fillRect(3 + row * 80, 3 + col * 80, 74, 74);
         } else {
           ctx.save();
