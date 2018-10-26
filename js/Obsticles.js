@@ -37,13 +37,16 @@
 // }
 
 var imageChange = 1
+var timeBonus = 5
+var level = 1
 function treasureCollected(){
 if (specialCdX == p1.x && specialCdY == p1.y ) {
   treasureSound.play()
-  time += 5;
+  time += timeBonus;
   $('#time').text(time);
   ////
   if (changeGame == 1) {
+    console.log('please work')
     $('#speech').attr('src','./Images/Encouragement/layer'+imageChange+'.png')
     $('#speech').attr('src','./Images/Encouragement/layer'+imageChange+'.png')
   
@@ -66,12 +69,16 @@ if (specialCdX == p1.x && specialCdY == p1.y ) {
   specialCdX = specialCd[1] * 80;
   createNewGridArray();
 
-  if (counter % 10 == 0 && scoreChange > 1) {
+  if (counter % 10 == 0 && scoreChange >= 1) {
     scoreChange--;
-    console.log('counter', counter % 2);
-    console.log('counter%', counter);
-    console.log('scorechange', scoreChange);
-
+    level++
+    
+  }
+  
+  if (timeBonus >=2 && level%2 == 0) {
+    timeBonus--
+    console.log('timebonus', timeBonus)
+    
   }
   if (counter % scoreChange == 0) {
 

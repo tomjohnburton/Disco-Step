@@ -9,7 +9,7 @@ class Player {
     this.img = new Image();
     this.img.src = 'Images/Dancer.gif'
     this.imgP2 = new Image()
-    this.imgP2.src = 'Images/Dancer2.png'
+    this.imgP2.src = 'Images/Maxence.png'
   
   }
 
@@ -62,7 +62,7 @@ class Player {
   }
 
   drawP2 (){
-    this.ctx.drawImage(this.imgP2,this.x-10,this.y-14,100,100)
+    this.ctx.drawImage(this.imgP2,this.x+5,this.y+5,70,70)
   }
 }
 

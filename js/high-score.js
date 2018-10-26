@@ -4,8 +4,10 @@ function getHighScores() {
   if (!Array.isArray(highScores)) {
     highScores = []
   }
-  return highScores
+  return highScores;
 }
+
+
 function saveHighScore(score,name) {
   var highScores = getHighScores()
   highScores.push({score:score, name:name})
@@ -24,3 +26,7 @@ function renderHighScores() {
   innerHTML += '</ul>'
   document.getElementById('high-scores').innerHTML = innerHTML
 }
+
+highScores = getHighScores()
+
+// console.log(highScores)

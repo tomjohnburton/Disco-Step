@@ -79,7 +79,6 @@
 
   countdownFnCall = setInterval(function () {
   time--;
-  console.log(time);
 
   if (time < 0) {
     time = 0;
@@ -87,7 +86,8 @@
 
   }
   $('#time').text(time);
-  console.log(time)},1000)}
+
+},1000)}
 
 //  var countdown =  setInterval(countdownFn(), 1000);
 
@@ -102,7 +102,6 @@
       createNewGridArray();
       drawGrid();
 
-      console.log('pre game impossibility prevention');
     }
   }
 
@@ -114,7 +113,6 @@
     if (time == 0) {
       gameOver()
       gameOverSound.play()
-      console.log('time gameover');
 
       clearInterval(countdown());
     }
@@ -171,12 +169,11 @@
     if (p1.x == 640 && p1.y == 720){
       ctx.clearRect(0, 0, width, height);
       scratchSound.play()
-      // ctx.fillStyle = 'blue';
-      // ctx.fillRect(3 + 640, 3 + 720, 74, 74);
       changeGame = 1;
       $('.background-GIF').removeClass();
+      ctx.drawImage(arrowImg, 730, 730, 60, 60);
       preventImpossible();
-      // drawGrid()
+      drawGrid()
       // update()
       countdownFn()
     }
@@ -189,26 +186,12 @@
         ctx.fillRect(3 + 480, 3 + 480, 74, 74);
         break;
 
-      // case 2: // START GAME
-      //   ctx.fillStyle = 'blue';
-      //   ctx.fillRect(3 + 640, 3 + 720, 74, 74);
-      //   changeGame = 1;
-      //   preventImpossible();
-      //   $('.background-GIF').removeClass();
-      //   drawGrid()
-      //   update()
-      //   break;
-
       case 3:
         ctx.fillStyle = 'blue';
         ctx.fillRect(3 + 160, 3 + 720, 74, 74);
         changeGame = 3;
         tutorialSpeech()
-        
-
-
         break;
-
 
       default: // CHANGE CHARACTER
         p1.draw();
@@ -219,7 +202,7 @@
 
     ctx.drawImage(img, 140, 50, 500, 230);
     ctx.drawImage(p1.img, 240 - 10, 480 - 14, 100, 100);
-    ctx.drawImage(p1.imgP2, 480 - 10, 480 - 14, 100, 100);
+    ctx.drawImage(p1.imgP2, 480+5, 480+5, 70, 70);
     ctx.drawImage(arrowImg, 650, 730, 60, 60);
     ctx.drawImage(arrowImgLeft, 165, 735, 75, 50);
 
@@ -228,13 +211,12 @@
   }
 
 
-  console.log('changegame', changeGame);
+
 
 
   function drawEverything() {
     mainMenuSound.pause()
     mainMenuSound.currentTime = 0
-    console.log('c1',c1)
     ctx.clearRect(0, 0, width, height);
     drawGrid();
     preventImpossible()
@@ -315,15 +297,6 @@
     if (p1.x >= 720 && p1.y >= 240 && p1.y <= 560 && changeGame == 2) {
       document.location.reload() ;
 
-      // setTimeout(() => {
-      //   changeGame = 1;
-      //   drawGrid()
-      //   p1.draw()
-      //   update()
-        
-      // }, 3000);
-
-
     }
     if (p1.x < 80 && p1.y >= 240 && p1.y <= 560 && changeGame == 2) {
       changeGame = 0;
@@ -390,10 +363,7 @@
     } else if (changeGame == 3) {
       updateDanceClass();
     }
-
-    console.log('changegame',changeGame)
-    console.log('c1',c1)
-    // console.log('PLAYER X Y', p1.x, p1.y);
+        // console.log('PLAYER X Y', p1.x, p1.y);
     // console.log('specialCD X,Y', specialCdX, specialCdY);
     // console.log(sortArray);
 
@@ -522,6 +492,14 @@
         ctx.fillStyle = "blue";
         ctx.font = "50px Bookman";
         ctx.fillText("LET'S BOOGIE", 350, 540);
+        
+        var top = highScores.length < 5 ? highScores.length : 5;
+        for (let i = 0; i < top; i++) {
+          
+          
+          ctx.fillStyle = "green";
+          ctx.fillText('Player '+ i + ':    '+ highScores[i].score, 300, 55+50*i, 600);
+        }  
 
       }
     }
@@ -566,12 +544,15 @@
     }
 
     setTimeout(() => {
+      ctx.save()
       ctx.fillStyle = colors[generateRandom(0,4)];
       ctx.font = "350px Bookman";
       ctx.fillText('YOU LOSE', 100, 350, 600);
       ctx.fillText('Score: '+counter, 100, 700, 600);
-
+      
+      ctx.restore()
     }, 5100);
+
 
     p1.x = 400;
     p1.y = 400;
