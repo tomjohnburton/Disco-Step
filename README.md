@@ -2,7 +2,8 @@
 
 My first solo project during the Ironhack Bootcamp. It is a Javascript and Canvas game where the user must navigate around a grid collecting vinyl records while avoiding stepping on the color specified in the background.
 
-Images/READMESC.png
+<img width="1652" alt="screenshot 2018-12-14 11 12 51" src="https://user-images.githubusercontent.com/39559415/49997453-ee690180-ff91-11e8-9cec-5893544456fe.png">
+
 
 ## Getting Started
 
